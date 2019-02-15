@@ -64,7 +64,7 @@ main{
     padding: 5px 10px;
     display: inline-block;
     text-align: left;
-    word-break: break-all;
+    word-break: normal;
     position: relative;
 }
 #messages li p::before,

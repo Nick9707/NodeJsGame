@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser  from "body-parser";
-import Game  from "./Game";
+import MyGame  from "./MyGame";
 
 // Create a new express application instance
 const app = express();
@@ -12,14 +12,15 @@ app.get("/users/:uname", (req, res) => {
     res.end("Hello " + req.params.uname);
 });
 
+
 let oGames = {};
 app.post("/sms", (req, res) =>{
-    let sFrom = req.body.From;
+    let sFrom = req.body.From || req.body.from;
     if(!oGames.hasOwnProperty(sFrom)){
-        oGames[sFrom] = new Game();
+        oGames[sFrom] = new MyGame();
     }
     let sMessage = req.body.Body|| req.body.body;
-    let aReply = oGames[sFrom].makeAMove(sMessage);
+    let aReply = oGames[sFrom].makeAMove(sMessage);    
     res.setHeader('content-type', 'text/xml');
     let sResponse = "<Response>";
     for(let n = 0; n < aReply.length; n++){
